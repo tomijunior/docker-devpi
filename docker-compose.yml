@@ -1,0 +1,33 @@
+services:
+  devpi:
+    image: junior/devpi:0.1.4
+    container_name: devpi
+    restart: always
+    build: ./devpi
+    user: $UID:$GID
+    secrets:
+      - appsettings.json
+    ports:
+      - 4141:3141
+    volumes:
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - ${PWD}/server/home:${HOME}
+      - ${PWD}/server/data:/devpi/server/data
+      - /ssd/projects/l4t-setup:/devpi/wheels
+    #  - ${PWD}/devpi/entrypoint.sh:/entrypoint.sh
+    #stdin_open: true
+    #tty: true
+    #command: 
+    #  - /bin/bash
+    #  - -c 
+    #  - tail -f /dev/null
+    entrypoint: 
+      - /bin/bash
+      - /entrypoint.sh
+    
+secrets:
+  appsettings.json:
+    file: ${SECRETS_FILE}
+    

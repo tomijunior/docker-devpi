@@ -1,0 +1,6 @@
+{
+    "config": {
+        "psw": "${DEVPI_USER_PASSWORD}",
+        "path": "${DEVPI_SERVER_PATH}"
+    }
+}

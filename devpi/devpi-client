@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+DEVPI_USER_PASSWORD=$(jq -r .config.psw /run/secrets/appsettings.json)
+DEVPI_SERVER_PATH=$(jq -r .config.path /run/secrets/appsettings.json)
+
+devpi use http://localhost:3141 > /dev/null 2>&1
+devpi login root --password=$DEVPI_USER_PASSWORD
+
+if [ "${1:-}" == "bash" ]; then
+    exec "$@"
+fi
+exec devpi "$@"
