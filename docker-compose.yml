@@ -1,6 +1,6 @@
 services:
   devpi:
-    image: junior/devpi:0.1.4
+    image: junior/devpi:0.1.5
     container_name: devpi
     restart: always
     build: ./devpi
@@ -15,14 +15,6 @@ services:
       - /etc/shadow:/etc/shadow:ro
       - ${PWD}/server/home:${HOME}
       - ${PWD}/server/data:/devpi/server/data
-      - /ssd/projects/l4t-setup:/devpi/wheels
-    #  - ${PWD}/devpi/entrypoint.sh:/entrypoint.sh
-    #stdin_open: true
-    #tty: true
-    #command: 
-    #  - /bin/bash
-    #  - -c 
-    #  - tail -f /dev/null
     entrypoint: 
       - /bin/bash
       - /entrypoint.sh
